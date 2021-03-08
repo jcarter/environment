@@ -1,0 +1,30 @@
+[
+  // Mult-line editing shortcuts
+  { "key": "cmd+shift+l", "command": "editor.action.insertCursorAtEndOfEachLineSelected", "when": "editorTextFocus" },
+
+  // Panel shortcuts
+  { "key": "ctrl+shift+enter", "command": "workbench.action.toggleMaximizedPanel", "when": "panelFocus" },
+
+  // Terminal shortcuts
+  { "key": "ctrl+shift+n", "command": "workbench.action.terminal.newInActiveWorkspace", "when": "terminalFocus" },
+  { "key": "ctrl+shift+w", "command": "workbench.action.terminal.kill", "when": "terminalFocus" },
+  { "key": "ctrl+shift+left", "command": "workbench.action.terminal.focusPrevious", "when": "terminalFocus" },
+  { "key": "ctrl+shift+right", "command": "workbench.action.terminal.focusNext", "when": "terminalFocus" },
+  { "key": "ctrl+shift+\\", "command": "workbench.action.terminal.split", "when": "terminalFocus" },
+  { "key": "ctrl+shift+[", "command": "workbench.action.terminal.focusPreviousPane", "when": "terminalFocus" },
+  { "key": "ctrl+shift+]", "command": "workbench.action.terminal.focusNextPane", "when": "terminalFocus" },
+  { "key": "cmd+k", "command": "workbench.action.terminal.clear", "when": "terminalFocus" },
+
+  // Git-related shortcuts
+  { "key": "shift+alt+c", "command": "git.openChange", "when": "editorTextFocus" },
+
+  // Open projects with project manager in new windows
+  { "key": "cmd+alt+p", "command": "projectManager.listProjectsNewWindow" },
+
+  // Clear the debug screen
+  { "key": "ctrl+l", "command": "workbench.debug.panel.action.clearReplAction", "when": "inDebugRepl" },
+
+  // Navigate
+  { "key": "cmd+[", "command": "workbench.action.navigateBack" },
+  { "key": "cmd+]", "command": "workbench.action.navigateForward" }
+]

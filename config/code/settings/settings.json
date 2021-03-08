@@ -1,0 +1,61 @@
+{
+  "editor.fontSize": 11,
+  "editor.renderWhitespace": "boundary",
+  "editor.lineHeight": 15,
+  "editor.tabSize": 2,
+  "editor.renderLineHighlight": "all",
+  "editor.cursorBlinking": "phase",
+  "editor.rulers": [80, 120],
+  "editor.fontFamily": "JetBrains Mono",
+  "editor.fontLigatures": true,
+  "editor.dragAndDrop": false,
+  "editor.minimap.enabled": false,
+  "editor.stickyTabStops": true,
+
+  "workbench.editor.enablePreview": false,
+  "workbench.editor.showTabs": false,
+  "workbench.colorTheme": "Dracula",
+  "workbench.startupEditor": "newUntitledFile",
+  "workbench.settings.editor": "json",
+
+  "diffEditor.renderSideBySide": false,
+  "diffEditor.ignoreTrimWhitespace": false,
+
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+
+  "window.zoomLevel": 0,
+  "window.title": "${rootName}${separator}${appName}",
+
+  "search.useGlobalIgnoreFiles": true,
+
+  "problems.decorations.enabled": false,
+
+  "extensions.ignoreRecommendations": true,
+
+  "terminal.integrated.fontSize": 11,
+  "terminal.integrated.rightClickBehavior": "default",
+  "terminal.integrated.rendererType": "experimentalWebgl",
+  "terminal.integrated.drawBoldTextInBrightColors": false,
+  "terminal.integrated.localEchoLatencyThreshold": -1,
+
+  "git.confirmSync": false,
+  "git.enableSmartCommit": true,
+  "git.autofetch": true,
+
+  "gitlens.codeLens.enabled": false,
+  "gitlens.keymap": "alternate",
+
+  "projectManager.sortList": "Recent",
+
+  "rest-client.previewResponsePanelTakeFocus": false,
+  "rest-client.requestNameAsResponseTabTitle": true,
+
+  "elixirLS.dialyzerEnabled": false,
+
+  "[json]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[jsonc]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[javascript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[typescript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[markdown]": { "editor.defaultFormatter": "esbenp.prettier-vscode" }
+}

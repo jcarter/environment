@@ -1,0 +1,27 @@
+[user]
+	name = Justin Carter
+	email = {{secret GIT_EMAIL}}
+[core]
+	excludesfile = ~/.gitignore_global
+	editor = code --wait
+	pager = delta
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	line-numbers = true
+	file-decoration-style = blue box ul
+	hunk-header-style = omit
+[diff]
+	tool = code
+[difftool "code"]
+	cmd = code --wait --diff $LOCAL $REMOTE
+[pull]
+	rebase = false
+[rebase]
+	instructionFormat = format:%s (%cr) <%an>
+[alias]
+	pf = push --force-with-lease
+	pr = pull --rebase
+	cb = symbolic-ref --short HEAD
+	pn = !git push --set-upstream origin $(git cb)
+	graph = log --graph --date-order --pretty=format:'%C(red)%h%C(reset) -%C(bold yellow)%d%C(reset) %s %C(bold green)(%cr)%C(reset) %C(blue)<%an>%C(reset)'

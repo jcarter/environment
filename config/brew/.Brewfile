@@ -17,9 +17,9 @@ if OS.mac?
   tap "homebrew/cask-fonts"
 
   cask "alfred"
-  cask "google-chrome"
   cask "docker"
   cask "font-jetbrains-mono"
+  cask "google-chrome"
   cask "hammerspoon"
   cask "hiddenbar"
   cask "kitty"
@@ -27,6 +27,7 @@ if OS.mac?
   cask "postman"
   cask "rescuetime"
   cask "spotify"
+  cask "visual-studio-code"
 
   # Dependencies for compiled asdf programs
   brew "erlang", args: ["only-dependencies"]

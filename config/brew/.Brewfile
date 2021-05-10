@@ -9,6 +9,7 @@ brew "git"
 brew "jq"
 brew "pandoc"
 brew "pgcli"
+brew "postgresql"
 brew "ripgrep"
 brew "yarn"
 

@@ -28,7 +28,7 @@ cat config/asdf/tools/.tool-versions | cut -d " " -f 1 | xargs -n 1 asdf plugin 
 
 # Add erlang and elixir globally so all shells can find the binaries
 asdf global erlang 23.2.6
-asdf global elixir 1.11.3
+asdf global elixir 1.11.4-otp-23
 
 # Push configuration
 source push.sh

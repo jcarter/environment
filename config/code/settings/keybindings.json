@@ -26,5 +26,8 @@
 
   // Navigate
   { "key": "cmd+[", "command": "workbench.action.navigateBack" },
-  { "key": "cmd+]", "command": "workbench.action.navigateForward" }
+  {
+    "key": "cmd+]",
+    "command": "workbench.action.navigateForward"
+  }
 ]

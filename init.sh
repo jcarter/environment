@@ -24,7 +24,7 @@ source $(brew --prefix asdf)/asdf.sh
 cat config/asdf/tools/.tool-versions | cut -d " " -f 1 | xargs -n 1 asdf plugin add
 
 # Install asdf programs
-(cd config/asdf/tools && NODEJS_CHECK_SIGNATURES=no asdf install)
+(cd config/asdf/tools && asdf install)
 
 # Add erlang and elixir globally so all shells can find the binaries
 asdf global erlang 23.2.6

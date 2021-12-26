@@ -1,6 +1,5 @@
 {
   "editor.fontSize": 11,
-  "editor.renderWhitespace": "boundary",
   "editor.lineHeight": 15,
   "editor.tabSize": 2,
   "editor.renderLineHighlight": "all",
@@ -16,7 +15,6 @@
   "workbench.settings.editor": "json",
 
   "diffEditor.renderSideBySide": false,
-  "diffEditor.ignoreTrimWhitespace": false,
 
   "files.trimTrailingWhitespace": true,
   "files.insertFinalNewline": true,
@@ -56,5 +54,25 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "files.autoSave": "onFocusChange",
-  "window.zoomLevel": 1
+  "workbench.panel.defaultLocation": "right",
+  "editor.renderControlCharacters": true,
+  "projectManager.git.baseFolders": [
+    "/Users/jcarter/Source/"
+  ],
+  "projectManager.git.maxDepthRecursion": 3,
+  "githubPullRequests.fileListLayout": "tree",
+  "[sql]": {
+    "editor.defaultFormatter": "mtxr.sqltools"
+  },
+  "sqltools.connections": [
+
+  ],
+  "elixirLS.enableTestLenses": true,
+  "editor.find.seedSearchStringFromSelection": "selection",
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "security.workspace.trust.untrustedFiles": "open",
+  "window.zoomLevel": 1,
+  "markdown.extension.toc.updateOnSave": false
 }

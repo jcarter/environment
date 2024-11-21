@@ -1,6 +1,8 @@
 #UseHook
 
-MapModifierKeys()
+TerminalClass := "ahk_class org.wezfurlong.wezterm"
+
+MapAllModifiers()
 
 ; Media
 !#End::Send {Media_Play_Pause}
@@ -12,19 +14,29 @@ MapModifierKeys()
 !#Home::Send {Volume_Mute}
 !#Insert::Send {Volume_Down}
 
-; Sleep
+; Power
+!#ScrollLock::DllCall("LockWorkStation")
 !#Pause::DllCall("PowrProf\SetSuspendState", "int", 0, "int", 0, "int", 0)
 
-; Search
-!Space::Send #s
+; Open terminal
+#`::
+If WinExist(TerminalClass) {
+  WinActivate
+} Else {
+  Run "wezterm-gui.exe", , , OutputVarPID
+  WinWait ahk_pid %OutputVarPID%
+  WinActivate ahk_pid %OutputVarPID%
+}
+
+Return
 
 ; Emoji keyboard
 !^Space::Send #.
 
 ; Window snapping
-!#Left::Send #{Left}
-!#Right::Send #{Right}
-!#Enter::Send #{Up}
+^#Left::Send #{Left}
+^#Right::Send #{Right}
+^#Enter::Send #{Up 2}
 
 ; Disable modifier key press behavior
 Alt::Return
@@ -33,6 +45,7 @@ LWin::Return
 RWin & vkFF::Return
 RWin::Return
 
+#If !WinActive(TerminalClass)
 ; Cursor control (Alt -> Command)
 !Up::Send ^{Home}
 !Down::Send ^{End}
@@ -53,22 +66,41 @@ RWin::Return
 #+Left::Send ^+{Left}
 #+Right::Send ^+{Right}
 
-; Cursor control (Alt + Win -> Command + Option)
-!#Up::Send ^!{Up}
-!#Down::Send ^!{Down}
-
 ; Backspace/Delete
 #Backspace::Send ^{Backspace}
 !Backspace::Send +{Home}{Delete}
 #Delete::Send ^{Delete}
 !Delete::Send +{End}{Delete}
+#If
 
-MapModifierKeys() {
+#If WinActive(TerminalClass)
+; Cursor control (Alt -> Command)
+!Up::Send ^{Up}
+!Down::Send ^{Down}
+!Left::Send ^{Left}
+!Right::Send ^{Right}
+
+; Cursor control (Win -> Option)
+#Left::Send !{Left}
+#Right::Send !{Right}
+
+; Backspace/Delete
+#Backspace::Send !{Backspace}
+!Backspace::Send ^{Backspace}
+#Delete::Send !{Delete}
+!Delete::Send ^{Delete}
+#If
+
+; Cursor control (Alt + Win -> Command + Option)
+!#Up::Send ^!{Up}
+!#Down::Send ^!{Down}
+
+MapAllModifiers() {
   Keys := ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m"
-         , "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"
-         , "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"
-         , "-", "=", "[", "]", "\", ";", "'", ",", ".", "/"
-         , "Enter"]
+    , "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"
+    , "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"
+    , "-", "=", "[", "]", "\", ";", "'", ",", ".", "/"
+    , "Enter", "RButton", "LButton", "MButton"]
 
   For _, Key In Keys {
     ControlFunc := Func("Control").Bind(Key)
@@ -77,10 +109,8 @@ MapModifierKeys() {
     ControlShiftFunc := Func("ControlShift").Bind(Key)
     Hotkey, !+%Key%, %ControlShiftFunc%
 
-    If (Key != "x") {
-      AltFunc := Func("Alt").Bind(Key)
-      Hotkey, #%Key%, %AltFunc%
-    }
+    AltFunc := Func("Alt").Bind(Key)
+    Hotkey, #%Key%, %AltFunc%
 
     AltShiftFunc := Func("AltShift").Bind(Key)
     Hotkey, #+%Key%, %AltShiftFunc%

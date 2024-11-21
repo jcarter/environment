@@ -1,0 +1,5 @@
+*.css diff=css
+*.ex diff=elixir
+*.exs diff=elixir
+*.html diff=html
+*.md diff=markdown

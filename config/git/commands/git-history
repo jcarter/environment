@@ -1,0 +1,37 @@
+#!/usr/bin/env fish
+
+argparse --ignore-unknown source "p/path=+" "f/file=" "s/show-options=" -- $argv
+
+set args (string escape -- $argv)
+set diff_merges (git config get log.diffMerges)
+
+if set -q _flag_source
+    set log_format comfortable-source
+else
+    set log_format comfortable
+end
+
+if set -q _flag_path
+    set show_paths -- (string escape $_flag_path)
+    set view_paths -- (string escape $_flag_path)
+else if set -q _flag_file
+    set -x commit_filenames (string replace -a -r "\n\n" "\t" (git log $argv --follow --name-status --format="%H" -- $_flag_file | string collect) | string collect)
+
+    if test (count $commit_filenames) -eq 0
+        echo "fatal: no file history for '$_flag_file'"
+        exit 1
+    else
+        set list_options --follow
+        set show_paths -- (string escape $_flag_file)
+        set view_paths -- '\$(echo "\$commit_filenames" | grep \$items | cut -f 3- | string split \t)'
+    end
+end
+
+source (status dirname)/git_fzf_command.fish \
+    --flags "--read0 --ansi --multi --track --scheme=history --marker-multi-line='┃  '" \
+    --main-view-name history \
+    --items-variable commits \
+    --no-items-message "No commit selected." \
+    --list-command "git log -z --color --format=$log_format $list_options $args $show_paths" \
+    --items-command "awk 'NR % 2 == 1' | sed -nE 's/[^0-9a-f]*([0-9a-f]+).*/\1/p' | xargs git rev-parse" \
+    --view-command "git show --color --decorate --diff-merges=$diff_merges $_flag_show_options \\\$items $view_paths"

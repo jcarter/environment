@@ -1,0 +1,167 @@
+set mouse true
+set sixel true
+set watch true
+set sortby time
+set reverse true
+set dirfirst false
+set info time
+set incsearch true
+set incfilter true
+set sortby time
+set shell fish
+set shellopts "--init-command=set fs (echo -n $fs); set fx (echo -n $fx)"
+set ifs
+set truncatechar …
+set hiddenfiles ".*:desktop.ini"
+set previewer "{{git rev-parse --show-toplevel}}/config/lf/previewer"
+set promptfmt "\033[30m\033[40m \033[90m%d\033[37;1m%f \033[0;30m"
+set statfmt "\033[30m\033[40;90m %S, %t| ╱ \033[36m→ %l| \033[0;30m"
+set rulerfmt "\033[30m\033[40m |\033[31m%m cut\033[90m ╱ |\033[33m%c copied\033[90m ╱ |\033[35m%s selected\033[90m ╱ |\033[32m%p\033[90m ╱ |\033[32m\"%f\"\033[90m ╱ |\033[37;1m%i\033[90m/%t \033[0;30m"
+set cursoractivefmt "\033[48;2;68;71;90m" # Selection color
+set cursorparentfmt "\033[48;2;48;51;65m" # Selection color blended 30% with background color
+set cursorpreviewfmt "\033[48;2;48;51;65m" # Selection color blended 30% with background color
+
+clearmaps
+
+# Default keybindings to keep
+map q quit
+map <up> up
+map <m-up> up
+map <down> down
+map <m-down> down
+map <pgup> page-up
+map <pgdn> page-down
+map <home> top
+map <end> bottom
+map <left> updir
+map <right> open
+map <c-r> reload
+map / search
+map ? search-back
+map n search-next
+map N search-prev
+map zh set hidden!
+map zr set reverse!
+map zn set info
+map zs set info size
+map zt set info time
+map za set info size:time
+map sn :set sortby natural; set reverse false; set dirfirst true; set info
+map st :set sortby time; set reverse true; set dirfirst false; set info time
+map ss :set sortby size; set reverse true; set dirfirst false; set info size
+
+# macOS-like top/bottom navigation
+map <c-home> top
+map <c-end> bottom
+
+# Conventional file manager keybindings
+map <tab> :toggle; down
+map <backtab> :toggle; up
+map <esc> :unselect; clear
+map <c-a> :unselect; invert
+map <c-c> copy
+map <c-x> cut
+map <c-v>f paste
+map <c-v>l paste-links
+map <c-n>d new-directory
+map <c-n>f new-file
+map <c-f> filter
+map <enter> rename
+map <delete> delete
+
+# Custom commands
+map <a-enter> edit-paths
+map e edit
+map ac archive-compress
+map ae archive-extract
+map ic image-convert-format
+map ir image-resize
+map cw copy-working-path
+map cp copy-selected-paths
+map cf copy-selected-filenames
+map r reveal-in-system-file-manager
+
+cmd paste-links %{{
+  set load (cat $HOME/.local/share/lf/files)
+  set files $load[2..]
+
+  ln -s $files .
+}}
+
+cmd new-directory %{{
+  if test -z $fs
+    printf " create new directory: " && read dir_name
+    mkdir -p $dir_name && printf "new directory created"
+  else
+    printf " move files to new directory: " && read dir_name
+    mkdir -p $dir_name && mv (echo $fs) $dir_name && printf "files moved to new directory"
+  end
+}}
+
+cmd new-file %{{
+  printf " create new file: " && read file_name
+  touch $file_name && printf "new file created"
+}}
+
+cmd edit-paths &{{
+  vimv $fx
+}}
+
+cmd edit &{{
+  code $fx
+}}
+
+cmd archive-compress %{{
+  printf " compress to archive: " && read archive_name
+  set relative_files (string replace "$PWD/" "" $fx)
+  ouch compress $relative_files $archive_name && printf "archive created"
+}}
+
+cmd archive-extract %{{
+  ouch decompress $f && printf "archive extracted"
+}}
+
+cmd image-convert-format %{{
+  printf " convert images to format: " && read format
+
+  for file in $fx
+    magick $file (path change-extension $format $file)
+  end
+
+  printf "images converted to $format"
+}}
+
+cmd image-resize %{{
+  printf " resize images: " && read geometry
+
+  for file in $fx
+    magick $file -resize $geometry (path change-extension "resized$(path extension $file)" $file)
+  end
+
+  printf "images resized"
+}}
+
+cmd copy-working-path %{{
+  echo -n $PWD | fish_clipboard_copy 2>/dev/null
+  printf "working path copied to clipboard"
+}}
+
+cmd copy-selected-paths %{{
+  echo -n "$(string collect $fx)" | fish_clipboard_copy 2>/dev/null
+  printf "selected paths copied to clipboard"
+}}
+
+cmd copy-selected-filenames %{{
+  echo -n "$(path basename $fx)" | fish_clipboard_copy 2>/dev/null
+  printf "selected filenames copied to clipboard"
+}}
+
+cmd reveal-in-system-file-manager &{{
+  if {{os_status mac-os && echo true || echo false}}
+    open -R $f
+  end
+
+  if {{os_status wsl && echo true || echo false}}
+    powershell.exe "explorer.exe /select,$(path basename $f)"
+  end
+}}

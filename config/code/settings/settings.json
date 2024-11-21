@@ -10,7 +10,7 @@
   "editor.dragAndDrop": false,
   "editor.minimap.enabled": false,
   "editor.stickyTabStops": true,
-  "workbench.colorTheme": "Dracula",
+  "workbench.colorTheme": "Dracula Theme",
   "workbench.startupEditor": "newUntitledFile",
   "workbench.settings.editor": "json",
 
@@ -44,8 +44,6 @@
   "rest-client.previewResponsePanelTakeFocus": false,
   "rest-client.requestNameAsResponseTabTitle": true,
 
-  "elixirLS.dialyzerEnabled": false,
-
   "[json]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
   "[jsonc]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
   "[javascript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
@@ -73,6 +71,27 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "security.workspace.trust.untrustedFiles": "open",
+  "markdown.extension.toc.updateOnSave": false,
+  "gitlens.showWhatsNewAfterUpgrades": false,
+  "gitlens.currentLine.enabled": false,
+  "githubPullRequests.commentExpandState": "collapseAll",
+  "comments.openView": "never",
+  "workbench.editor.enablePreviewFromQuickOpen": true,
+  "editor.accessibilitySupport": "off",
+  "diffEditor.ignoreTrimWhitespace": false,
+  "haskell.manageHLS": "PATH",
+  "githubPullRequests.pullBranch": "never",
+  "vscode-elixir-test": {},
+  "workbench.tree.enableStickyScroll": true,
+  "editor.stickyScroll.enabled": true,
+  "workbench.editor.showTabs": "multiple",
   "window.zoomLevel": 1,
-  "markdown.extension.toc.updateOnSave": false
+  "continue.enableTabAutocomplete": true,
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false
+  },
+  "scm.showHistoryGraph": false
 }

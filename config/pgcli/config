@@ -1,10 +1,12 @@
 [main]
 less_chatty = True
 multi_line = True
+multi_line_mode = safe
 keyword_casing = upper
-table_format = double
-prompt = '\x1b[1m\x1b[34m\h \x1b[36m\d\n\x1b[32m» '
-multiline_continuation_char = ' '
+table_format = psql_unicode
+prompt = '\x1b[30m\x1b[40m \x1b[34m\h \x1b[90m╱ \x1b[36m\d \x1b[0;30m\n\x1b[32m▶ '
+multiline_continuation_char = '~'
+pager = 'less --header=3 --jump-target=4'
 
 [colors]
 completion-menu.completion.current = 'ansiblack bg:ansigray'
@@ -17,14 +19,18 @@ bottom-toolbar.off = ''
 bottom-toolbar.on = 'ansiwhite bold'
 bottom-toolbar.transaction.valid = 'ansigreen bold'
 bottom-toolbar.transaction.failed = 'ansired bold'
-literal.string = 'ansiyellow'
-literal.number = 'ansiblue'
-keyword = 'ansimagenta'
 output.header = 'ansiblue bold'
 output.null = 'ansibrightblack'
-pygments.comment = 'ansibrightblack'
-pygments.name = 'ansigray'
-pygments.name.builtin = 'ansicyan italic'
-pygments.operator = 'ansimagenta'
-pygments.punctuation = 'ansigray'
-pygments.text = 'ansigray'
+
+# Syntax Highlighting
+Token.Comment = 'ansibrightblack'
+Token.Keyword = 'ansimagenta'
+Token.Name = 'ansigray'
+Token.Name.Builtin = 'ansicyan italic'
+Token.Name.Function = 'ansicyan'
+Token.Number = 'ansiblue'
+Token.Operator = 'ansimagenta'
+Token.Punctuation = 'ansigray'
+Token.String = 'ansiyellow'
+Token.String.Escape = 'ansimagenta'
+Token.Text = 'ansigray'

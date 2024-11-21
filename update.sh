@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 source functions/os_status.sh
 
@@ -11,5 +11,5 @@ brew upgrade
 # Update asdf plugins
 asdf plugin update --all
 
-# Update Fisher packages
+# Update Fisher plugins
 fish -c "fisher update"

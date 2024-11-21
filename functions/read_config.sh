@@ -3,8 +3,8 @@ function read_config {
   local file=$(cat "$1")
   local substitutions=$(grep -o "{{\([^}]\|}[^}]\)*}}" <<< "$file")
 
-  if [ -n "$substitutions" ]; then
-    while read substitution; do
+  if test -n "$substitutions"; then
+    while read -r substitution; do
       local command=${substitution/#"{{"}
       local command=${command/%"}}"}
       local value=$(eval $command)

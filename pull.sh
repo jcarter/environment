@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 source functions/config_paths.sh
 source functions/read_config.sh
@@ -8,18 +8,20 @@ function copy {
   local config_path dest_path
   local paths=$(config_paths "$1" "$2")
 
-  while read config_path dest_path; do
-    local config_file=$(read_config "$config_path")
-    local dest_file=$(cat "$dest_path")
+  while IFS="|" read -r config_path dest_path; do
+    local labels="-L config -L evaluated -L destination"
+    local merged=$(read_config "$config_path" | diff3 -m $labels "$config_path" - "$dest_path")
 
-    if [ "$config_file" != "$dest_file" ]; then
-      echo "$dest_file" > "$config_path"
-    fi
+    echo "$merged" > "$config_path"
   done <<< "$paths"
 }
 
-function run {
-  run_script "$2"
+function on_push {
+  :
+}
+
+function on_pull {
+  run_script "$1"
 }
 
 (cd config && source sync.sh)

@@ -1,0 +1,97 @@
+[user]
+	name = Justin Carter
+	email = {{secret GIT_EMAIL}}
+[core]
+	pager = delta
+[init]
+	defaultBranch = main
+[color.blame]
+	highlightRecent = "normal #000000, 1 year ago, normal #241B30, 6 months ago, normal #302540, 3 months ago, normal #3C2E50, 1 month ago, normal #483860, 2 weeks ago, normal #554170, 1 day ago, normal #614B80"
+[pretty]
+	compact = %C(bold blue)%h%C(reset) - %s %C(brightblack)%an, %ar%C(yellow)%d%C(reset)
+	compact-source = %C(bold blue)%h%C(reset) - %s %C(brightblack)%an, %ar %C(magenta)[%S]%C(yellow)%d%C(reset)
+	comfortable = %C(bold blue)%h%C(reset) - %s%C(yellow)%d%n%C(brightblack)%an, %ar%C(reset)
+	comfortable-source = %C(bold blue)%h%C(reset) - %s %C(magenta)[%S]%C(yellow)%d%n%C(brightblack)%an, %ar%C(reset)
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	features = hyperlinks merge-conflicts section-styles line-numbers consistent-diff-colors dracula-colors
+	navigate = true
+	paging = always
+[delta "navigate-commits"]
+	navigate-regex = "^commit"
+[delta "hyperlinks"]
+	hyperlinks = true
+	hyperlinks-commit-link-format = ""
+	hyperlinks-file-link-format = vscode://{{os_status wsl && echo vscode-remote/wsl+Ubuntu || echo file}}/{path}:{line}
+[delta "merge-conflicts"]
+	merge-conflict-ours-diff-header-style = cyan
+	merge-conflict-ours-diff-header-decoration-style = cyan box
+	merge-conflict-theirs-diff-header-style = magenta
+	merge-conflict-theirs-diff-header-decoration-style = magenta box
+[delta "section-styles"]
+	commit-decoration-style = yellow ul ol
+	file-decoration-style = blue box ul
+	hunk-label = ""
+	hunk-header-style = syntax
+	hunk-header-decoration-style = brightblack ul
+[delta "line-numbers"]
+	line-numbers = true
+	line-numbers-minus-style = red
+	line-numbers-plus-style = green
+	line-numbers-zero-style = brightblack
+[delta "consistent-diff-colors"]
+	minus-style = minus-emph-style
+	plus-style = plus-emph-style
+[delta "dracula-colors"]
+	minus-emph-style = syntax "#80363E"
+	minus-non-emph-style = syntax "#61303A"
+	plus-emph-style = syntax "#2D583F"
+	plus-non-emph-style = syntax "#2A463B"
+	map-styles = "bold purple => syntax #404968, bold cyan => syntax #404968, bold blue => syntax #363C53, bold yellow => syntax #363C53"
+[branch]
+	sort = -committerdate
+[commit]
+	cleanup = scissors
+[merge]
+	tool = code
+	conflictStyle = zdiff3
+[mergetool "code"]
+	cmd = code --wait --merge $REMOTE $LOCAL $BASE $MERGED
+[diff]
+	tool = code
+	colorMoved = default
+	colorMovedWS = allow-indentation-change
+[log]
+	date = "format-local:%F %r"
+	diffMerges = remerge
+[blame]
+	coloring = highlightRecent
+[difftool "code"]
+	cmd = code --wait --diff $LOCAL $REMOTE
+[fetch]
+	prune = true
+[pull]
+	rebase = false
+[rebase]
+	instructionFormat = format:%s (%cr) <%an>
+[rerere]
+	enabled = true
+[sequence]
+	editor = interactive-rebase-tool
+[interactive-rebase-tool]
+	autoSelectNext = true
+	verticalSpacingCharacter = ""
+	selectedBackgroundColor = 68,71,90
+	inputMoveSelectionDown = Alt+Down
+	inputMoveSelectionUp = Alt+Up
+	inputRebase = Alt+Enter
+[alias]
+	me = config --get user.email
+	cb = branch --show-current
+	mend = commit --amend --no-edit
+	force-push = push --force-with-lease --force-if-includes
+	message = log --max-count=1 --format='%B'
+	graph = log --graph --format=compact
+	graph-source = log --graph --format=compact-source
+	publish = "! f() { git push --set-upstream ${1:-origin} $(git branch --show-current); }; f"

@@ -11,9 +11,6 @@ brew "pandoc"
 brew "pgcli"
 
 if OS.mac?
-  tap "homebrew/cask"
-  tap "homebrew/cask-fonts"
-
   cask "alfred"
   cask "docker"
   cask "font-jetbrains-mono"
